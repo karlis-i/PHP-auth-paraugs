@@ -1,0 +1,51 @@
+
+version: '3'
+
+services:
+
+    # web server
+    phpauth-nginx:
+        container_name: phpauth-nginx
+        build: ./nginx
+        volumes:
+            - './application:${APP_ROOT}'
+        ports:
+            - '${APP_PORT}:80'
+        networks:
+            - phpauth-network
+
+    # php
+    phpauth-php:
+        container_name: phpauth-php
+        build: ./php
+        volumes:
+            - './application:${APP_ROOT}'
+        networks:
+            - phpauth-network
+
+    # db
+    phpauth-mysql:
+        container_name: phpauth-mysql
+        image: mysql:8
+        ports:
+            - '3306:3306'
+        volumes:
+            - './mysql:${DATABASE_PATH}'
+        environment:
+            MYSQL_DATABASE: ${DATABASE_NAME}
+            MYSQL_ROOT_PASSWORD: ${DB_ROOT_PWD}
+        networks:
+            - phpauth-network
+
+    # phpmyadmin
+    phpauth-adminer:
+        container_name: phpauth-adminer
+        image: adminer:4-standalone
+        restart: always
+        ports:
+          - 8081:8080
+        networks:
+            - phpauth-network
+
+networks:
+    phpauth-network:
