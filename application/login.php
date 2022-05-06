@@ -13,8 +13,8 @@ if (isset($_SESSION['auth_user']) && !empty($_SESSION['auth_user'])) {
 if (isset($_POST['name']) && isset($_POST['pass'])) {
     // ja lietotājs ir aizpildījis formu
 
-    $inputName = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
-    $inputPass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_STRING);
+    $inputName = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+    $inputPass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_SPECIAL_CHARS);
     // $hashPass = password_hash($inputPass, PASSWORD_BCRYPT);
 
     require_once('_conf.php');
