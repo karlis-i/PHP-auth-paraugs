@@ -38,6 +38,8 @@ require_once('_header.php');
                 </div>
 
                 <button type="submit" class="btn btn-primary">Pieteikties</button>
+
+                <p>admin / guest</p>
             </form>
 
 <?php require_once('_footer.php'); ?>
